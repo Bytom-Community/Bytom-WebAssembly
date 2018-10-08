@@ -13,8 +13,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
 
 	"github.com/bytom-community/wasm/crypto"
 	"github.com/bytom-community/wasm/crypto/ed25519/chainkd"
@@ -30,44 +28,6 @@ const (
 	scryptR      = 8
 	scryptDKLen  = 32
 )
-
-type keyStorePassphrase struct {
-	keysDirPath string
-	scryptN     int
-	scryptP     int
-}
-
-func (ks keyStorePassphrase) GetKey(alias string, filename, auth string) (*XKey, error) {
-	// Load the key from the keystore and decrypt its contents
-	keyjson, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	key, err := DecryptKey(keyjson, auth)
-	if err != nil {
-		return nil, err
-	}
-	// Make sure we're really operating on the requested key (no swap attacks)
-	if key.Alias != alias {
-		return nil, fmt.Errorf("key content mismatch: have account %x, want %x", key.Alias, alias)
-	}
-	return key, nil
-}
-
-func (ks keyStorePassphrase) StoreKey(filename string, key *XKey, auth string) error {
-	keyjson, err := EncryptKey(key, auth, ks.scryptN, ks.scryptP)
-	if err != nil {
-		return err
-	}
-	return writeKeyFile(filename, keyjson)
-}
-
-func (ks keyStorePassphrase) JoinPath(filename string) string {
-	if filepath.IsAbs(filename) {
-		return filename
-	}
-	return filepath.Join(ks.keysDirPath, filename)
-}
 
 // EncryptKey encrypts a key using the specified scrypt parameters into a json
 // blob that can be decrypted later on.

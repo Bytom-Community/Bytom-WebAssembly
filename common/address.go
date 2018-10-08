@@ -11,23 +11,11 @@ import (
 )
 
 var (
-	// ErrChecksumMismatch describes an error where decoding failed due
-	// to a bad checksum.
-	ErrChecksumMismatch = errors.New("checksum mismatch")
-
 	// ErrUnknownAddressType describes an error where an address can not
 	// decoded as a specific address type due to the string encoding
 	// begining with an identifier byte unknown to any standard or
 	// registered (via chaincfg.Register) network.
 	ErrUnknownAddressType = errors.New("unknown address type")
-
-	// ErrAddressCollision describes an error where an address can not
-	// be uniquely determined as either a pay-to-pubkey-hash or
-	// pay-to-script-hash address since the leading identifier is used for
-	// describing both address kinds, but for different networks.  Rather
-	// than assuming or defaulting to one or the other, this error is
-	// returned and the caller must decide how to decode the address.
-	ErrAddressCollision = errors.New("address collision")
 
 	// ErrUnsupportedWitnessVer describes an error where a segwit address being
 	// decoded has an unsupported witness version.

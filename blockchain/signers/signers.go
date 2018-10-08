@@ -23,17 +23,9 @@ var (
 	// of xpubs provided.
 	ErrBadQuorum = errors.New("quorum must be greater than 1 and less than or equal to the length of xpubs")
 
-	// ErrBadXPub is returned by Create when the xpub
-	// provided isn't valid.
-	ErrBadXPub = errors.New("invalid xpub format")
-
 	// ErrNoXPubs is returned by create when the xpubs
 	// slice provided is empty.
 	ErrNoXPubs = errors.New("at least one xpub is required")
-
-	// ErrBadType is returned when a find operation
-	// retrieves a signer that is not the expected type.
-	ErrBadType = errors.New("retrieved type does not match expected type")
 
 	// ErrDupeXPub is returned by create when the same xpub
 	// appears twice in a single call.
