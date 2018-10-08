@@ -25,6 +25,7 @@ func signTransaction(args []js.Value) {
 	password := args[0].Get("password").String()
 	if isEmpty(transaction) || isEmpty(password) {
 		args[1].Set("error", "args empty")
+		return
 	}
 	var tx txbuilder.Template
 	err := json.Unmarshal([]byte(transaction), &tx)
