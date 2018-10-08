@@ -18,7 +18,7 @@ func init() {
 	funcs["signTransaction"] = signTransaction
 }
 
-//Register Register js xPub func
+//Register Register func
 func Register() {
 	jsFuncVal := js.Global().Get("AllFunc")
 	for k, v := range funcs {
