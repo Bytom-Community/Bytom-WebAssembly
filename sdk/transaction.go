@@ -61,7 +61,7 @@ func getSignFunc() txbuilder.SignFunc {
 			err = errors.New("call getKeyByXPub error maybe not found")
 			done <- struct{}{}
 		}))
-
+		<-done
 		if err != nil {
 			return nil, err
 		}
