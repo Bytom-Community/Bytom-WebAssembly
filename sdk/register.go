@@ -16,6 +16,7 @@ func init() {
 	funcs["createAccount"] = createAccount
 	funcs["createAccountReceiver"] = createAccountReceiver
 	funcs["signTransaction"] = signTransaction
+	funcs["signTransactionServer"] = signTransactionServer
 }
 
 //Register Register func
