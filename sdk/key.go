@@ -67,7 +67,9 @@ func resetKeyPassword(args []js.Value) {
 	xpub := new(chainkd.XPub)
 	xpub.UnmarshalText([]byte(rootXPub))
 	jsv := js.Global().Get(getKeyByXPub).Invoke(xpub.String())
-	jsv.Call("then", js.NewCallback(func(a []js.Value) {
+	var then, catch js.Callback
+	then = js.NewCallback(func(a []js.Value) {
+		defer then.Release()
 		defer endFunc(args[1])
 		key, err := pseudohsm.DecryptKey([]byte(a[0].String()), oldPassword)
 		if err != nil {
@@ -80,10 +82,13 @@ func resetKeyPassword(args []js.Value) {
 			return
 		}
 		args[1].Set("data", string(keyjson))
-	})).Call("catch", js.NewCallback(func(a []js.Value) {
+	})
+	catch = js.NewCallback(func(a []js.Value) {
+		defer catch.Release()
+		defer endFunc(args[1])
 		args[1].Set("error", a[0])
-		endFunc(args[1])
-	}))
+	})
+	jsv.Call("then", then).Call("catch", catch)
 }
 
 //ScMulBase ed25519 scMulBase
