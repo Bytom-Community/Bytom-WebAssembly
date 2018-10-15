@@ -31,8 +31,8 @@ type Template struct {
 
 //RespSign result sign
 type RespSign struct {
-	Transaction string   `json:"raw_transaction"`
-	Signatures  []string `json:"signatures"`
+	Transaction string     `json:"raw_transaction"`
+	Signatures  [][]string `json:"signatures"`
 }
 
 func signTransaction1(args []js.Value) {
@@ -50,8 +50,8 @@ func signTransaction1(args []js.Value) {
 		args[1].Set("error", err.Error())
 		return
 	}
-	signRet := make([]string, 0, len(tx.SigningInstructions))
-	for _, v := range tx.SigningInstructions {
+	signRet := make([][]string, len(tx.SigningInstructions))
+	for k, v := range tx.SigningInstructions {
 		path := make([][]byte, len(v.DerivationPath))
 		for i, p := range v.DerivationPath {
 			path[i] = p
@@ -69,7 +69,10 @@ func signTransaction1(args []js.Value) {
 				args[1].Set("error", err.Error())
 				return
 			}
-			signRet = append(signRet, hex.EncodeToString(signData))
+			if signRet[k] == nil {
+				signRet[k] = make([]string, 0, len(v.SignData))
+			}
+			signRet[k] = append(signRet[k], hex.EncodeToString(signData))
 		}
 	}
 	var ret RespSign
