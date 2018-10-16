@@ -9,11 +9,7 @@ import (
 
 //consensus variables
 const (
-	VMGasRate                      = int64(200)
-	StorageGasRate                 = int64(1)
-	PayToWitnessPubKeyHashDataSize = 20
-	PayToWitnessScriptHashDataSize = 32
-	BTMAlias                       = "BTM"
+	BTMAlias = "BTM"
 )
 
 // BTMAssetID is BTM's asset id, the soul asset of Bytom
@@ -22,14 +18,6 @@ var BTMAssetID = &bc.AssetID{
 	V1: binary.BigEndian.Uint64([]byte{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff}),
 	V2: binary.BigEndian.Uint64([]byte{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff}),
 	V3: binary.BigEndian.Uint64([]byte{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff}),
-}
-
-// BTMDefinitionMap is the ....
-var BTMDefinitionMap = map[string]interface{}{
-	"name":        BTMAlias,
-	"symbol":      BTMAlias,
-	"decimals":    8,
-	"description": `Bytom Official Issue`,
 }
 
 // IsBech32SegwitPrefix returns whether the prefix is a known prefix for segwit

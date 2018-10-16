@@ -12,12 +12,6 @@ import (
 var (
 	//ErrBadTxInputIdx means unsigned tx input
 	ErrBadTxInputIdx = errors.New("unsigned tx missing input")
-	//ErrBadWitnessComponent means invalid witness component
-	ErrBadWitnessComponent = errors.New("invalid witness component")
-	//ErrBadAmount means invalid asset amount
-	ErrBadAmount = errors.New("bad asset amount")
-	//ErrMissingFields means missing required fields
-	ErrMissingFields = errors.New("required field is missing")
 )
 
 // Sign will try to sign all the witness

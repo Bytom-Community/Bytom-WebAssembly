@@ -11,9 +11,8 @@ import (
 )
 
 const (
-	HashLength       = 32
-	AddressLength    = 42
-	PubkeyHashLength = 20
+	HashLength    = 32
+	AddressLength = 42
 )
 
 var hashJsonLengthErr = errors.New("common: unmarshalJSON failed: hash must be exactly 32 bytes")
@@ -21,16 +20,6 @@ var hashJsonLengthErr = errors.New("common: unmarshalJSON failed: hash must be e
 type (
 	Hash [HashLength]byte
 )
-
-func BytesToHash(b []byte) Hash {
-	var h Hash
-	h.SetBytes(b)
-	return h
-}
-
-func StringToHash(s string) Hash { return BytesToHash([]byte(s)) }
-func BigToHash(b *big.Int) Hash  { return BytesToHash(b.Bytes()) }
-func HexToHash(s string) Hash    { return BytesToHash(FromHex(s)) }
 
 // Don't use the default 'String' method in case we want to overwrite
 
@@ -90,8 +79,4 @@ func (h Hash) Generate(rand *rand.Rand, size int) reflect.Value {
 		h[i] = byte(rand.Uint32())
 	}
 	return reflect.ValueOf(h)
-}
-
-func EmptyHash(h Hash) bool {
-	return h == Hash{}
 }
