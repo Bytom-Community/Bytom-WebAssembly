@@ -1,11 +1,9 @@
 package main
 
-import (
-	"github.com/bytom-community/wasm/sdk"
-)
+import "github.com/bytom-community/wasm/sdk/js"
 
 func main() {
 	done := make(chan struct{}, 0)
-	sdk.Register()
+	js.Register()
 	<-done
 }

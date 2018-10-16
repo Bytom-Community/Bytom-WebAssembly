@@ -1,9 +1,11 @@
-package sdk
+package standard
 
 import (
 	"encoding/json"
 	"strings"
 	"syscall/js"
+
+	"github.com/bytom-community/wasm/sdk/lib"
 
 	"github.com/bytom-community/wasm/account"
 	"github.com/bytom-community/wasm/blockchain/signers"
@@ -16,8 +18,9 @@ import (
 	"github.com/bytom-community/wasm/protocol/vm/vmutil"
 )
 
-func createAccount(args []js.Value) {
-	defer endFunc(args[1])
+//CreateAccount create account
+func CreateAccount(args []js.Value) {
+	defer lib.EndFunc(args[1])
 	var (
 		alias     string
 		quorum    int
@@ -53,8 +56,9 @@ func createAccount(args []js.Value) {
 	args[1].Set("data", string(rawAccount))
 }
 
-func createAccountReceiver(args []js.Value) {
-	defer endFunc(args[1])
+//CreateAccountReceiver create address by account
+func CreateAccountReceiver(args []js.Value) {
+	defer lib.EndFunc(args[1])
 	var (
 		acc       account.Account
 		err       error

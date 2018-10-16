@@ -1,6 +1,12 @@
-package sdk
+// +build mini
 
-import "syscall/js"
+package js
+
+import (
+	"syscall/js"
+
+	"github.com/bytom-community/wasm/sdk/base"
+)
 
 //RegisterFunc Register js func
 type RegisterFunc func(args []js.Value)
@@ -10,13 +16,9 @@ var funcs map[string]RegisterFunc
 func init() {
 	funcs = make(map[string]RegisterFunc)
 
-	funcs["scMulBase"] = scMulBase
-	funcs["createKey"] = createKey
-	funcs["resetKeyPassword"] = resetKeyPassword
-	funcs["createAccount"] = createAccount
-	funcs["createAccountReceiver"] = createAccountReceiver
-	funcs["signTransaction"] = signTransaction
-	funcs["signTransaction1"] = signTransaction1
+	funcs["createKey"] = base.CreateKey
+	funcs["resetKeyPassword"] = base.ResetKeyPassword
+	funcs["signTransaction1"] = base.SignTransaction1
 }
 
 //Register Register func
