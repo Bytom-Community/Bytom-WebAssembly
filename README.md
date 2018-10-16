@@ -12,8 +12,10 @@ Need Go version 1.11
 
 ```sh
 cd $GOPATH/src/github.com/bytom-community/wasm
+#default build
 GOOS=js GOARCH=wasm go build -o main.wasm
-GOOS=js GOARCH=wasm go build -tags=mini -o main.wasm #mini build
+#mini build
+GOOS=js GOARCH=wasm go build -tags=mini -o main.wasm 
 ```
 
 
